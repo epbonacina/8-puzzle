@@ -1,7 +1,6 @@
 from buscadores.bfs import bfs
 from buscadores.dfs import dfs
-from buscadores.a_estrela_hamming import a_estrela_hamming
-from buscadores.a_estrela_manhattan import a_estrela_manhattan
+from buscadores.a_estrela import a_estrela_manhattan, a_estrela_hamming
 
 BUSCADORES_DISPONIVEIS = {
     "BFS": bfs,
