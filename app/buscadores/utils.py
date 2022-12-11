@@ -20,72 +20,23 @@ def _swap(estado, idx_1, idx_2):
 
 def sucessor(estado):
     espaco_idx = estado.index("_")
+
+    sucessores = {}
+
+    if espaco_idx in {3,4,5,6,7,8}:
+        sucessores["cima"] = _swap(estado, espaco_idx, espaco_idx-3)
+
+    if espaco_idx in {0,1,2,3,4,5}:
+        sucessores["baixo"] = _swap(estado, espaco_idx, espaco_idx+3)
+
+    if espaco_idx in {0,1,3,4,6,7}:
+        sucessores["direita"] = _swap(estado, espaco_idx, espaco_idx+1)
+
+    if espaco_idx in {1,2,4,5,7,8}:
+        sucessores["esquerda"] = _swap(estado, espaco_idx, espaco_idx-1)
+
+    return list(sucessores.items())
     
-    novo_estado_baixo = estado
-    novo_estado_direita = estado
-    novo_estado_esquerda = estado
-    novo_estado_cima = estado
-
-    if espaco_idx == 0:
-        novo_estado_baixo = _swap(novo_estado_baixo, espaco_idx, 3)
-        novo_estado_direita = _swap(novo_estado_direita, espaco_idx, 1)
-        
-        return [("baixo", novo_estado_baixo), ("direita", novo_estado_direita)]
-
-    if espaco_idx == 1:
-        novo_estado_baixo = _swap(novo_estado_baixo, espaco_idx, 4)
-        novo_estado_direita = _swap(novo_estado_direita, espaco_idx, 2)
-        novo_estado_esquerda = _swap(novo_estado_esquerda, espaco_idx, 0)
-        
-        return [("baixo", novo_estado_baixo), ("direita", novo_estado_direita), ("esquerda", novo_estado_esquerda)]
-
-    if espaco_idx == 2:
-        novo_estado_baixo = _swap(novo_estado_baixo, espaco_idx, 5)
-        novo_estado_esquerda = _swap(novo_estado_esquerda, espaco_idx, 1)
-        
-        return [("baixo", novo_estado_baixo), ("esquerda", novo_estado_esquerda)]
-
-    if espaco_idx == 3:
-        novo_estado_baixo = _swap(novo_estado_baixo, espaco_idx, 6)
-        novo_estado_direita = _swap(novo_estado_direita, espaco_idx, 4)
-        novo_estado_cima = _swap(novo_estado_cima, espaco_idx, 0)
-        
-        return [("baixo", novo_estado_baixo), ("direita", novo_estado_direita), ("cima", novo_estado_cima)]
-
-    if espaco_idx == 4:
-        novo_estado_baixo = _swap(novo_estado_baixo, espaco_idx, 7)
-        novo_estado_esquerda = _swap(novo_estado_esquerda, espaco_idx, 3)
-        novo_estado_direita = _swap(novo_estado_direita, espaco_idx, 5)
-        novo_estado_cima = _swap(novo_estado_cima, espaco_idx, 1)
-        
-        return [("baixo", novo_estado_baixo), ("direita", novo_estado_direita), ("cima", novo_estado_cima), ("esquerda", novo_estado_esquerda)]
-
-    if espaco_idx == 5:
-        novo_estado_baixo = _swap(novo_estado_baixo, espaco_idx, 8)
-        novo_estado_esquerda = _swap(novo_estado_esquerda, espaco_idx, 4)
-        novo_estado_cima = _swap(novo_estado_cima, espaco_idx, 2)
-        
-        return [("baixo", novo_estado_baixo), ("cima", novo_estado_cima), ("esquerda", novo_estado_esquerda)]
-
-    if espaco_idx == 6:
-        novo_estado_direita = _swap(novo_estado_direita, espaco_idx, 7)
-        novo_estado_cima = _swap(novo_estado_cima, espaco_idx, 3)
-        
-        return [("direita", novo_estado_direita), ("cima", novo_estado_cima)]
-
-    if espaco_idx == 7:
-        novo_estado_esquerda = _swap(novo_estado_esquerda, espaco_idx, 6)
-        novo_estado_direita = _swap(novo_estado_direita, espaco_idx, 8)
-        novo_estado_cima = _swap(novo_estado_cima, espaco_idx, 4)
-        
-        return [("direita", novo_estado_direita), ("cima", novo_estado_cima), ("esquerda", novo_estado_esquerda)]
-
-    if espaco_idx == 8:
-        novo_estado_esquerda = _swap(novo_estado_esquerda, espaco_idx, 7)
-        novo_estado_cima = _swap(novo_estado_cima, espaco_idx, 5)
-        
-        return [("cima", novo_estado_cima), ("esquerda", novo_estado_esquerda)]
-
 
 def expande(nodo):
     sucessores = sucessor(nodo.estado)

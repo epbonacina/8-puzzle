@@ -1,6 +1,9 @@
 from buscadores.utils import expande, Node
 
 def bfs(estado_inicial):
+
+    ESTADO_FINAL = "12345678_"
+
     x = set()
     f = [
         Node(
@@ -14,7 +17,7 @@ def bfs(estado_inicial):
     while f:
         v = f.pop(0)
 
-        if v.estado == "12345678_":
+        if v.estado == ESTADO_FINAL:
             solution = []
             while v:
                 solution.append(v.acao)
