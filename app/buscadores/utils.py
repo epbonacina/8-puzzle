@@ -8,6 +8,8 @@ class Node:
     def __repr__(self):
         return f"Node(estado={self.estado}, pai={self.pai}, acao={self.acao}, custo={self.custo})"
 
+    def __lt__(self, other):
+            return (self.custo < other.custo) and (self.custo < other.custo)
 
 def _swap(estado, idx_1, idx_2):
     novo_estado = list(estado)
