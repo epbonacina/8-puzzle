@@ -1,3 +1,6 @@
+ESTADO_FINAL = "12345678_"
+
+
 class Node:
     def __init__(self, estado, pai, acao, custo):
         self.estado = estado
@@ -8,8 +11,6 @@ class Node:
     def __repr__(self):
         return f"Node(estado={self.estado}, pai={self.pai}, acao={self.acao}, custo={self.custo})"
 
-    def __lt__(self, other):
-            return (self.custo < other.custo) and (self.custo < other.custo)
 
 def _swap(estado, idx_1, idx_2):
     novo_estado = list(estado)
@@ -45,3 +46,31 @@ def expande(nodo):
     filhos = [Node(estado, nodo, acao, nodo.custo + 1) for acao, estado in sucessores]
 
     return filhos
+
+
+def busca_grafo(func_remocao, func_insercao, estado_inicial):
+    x = set()
+    f = [
+        Node(
+            estado = estado_inicial, 
+            pai = None, 
+            acao = None, 
+            custo = 0
+        )
+    ]
+
+    while True:
+        if not f:
+            return len(x), None
+            
+        v = func_remocao(f)
+        if v.estado == ESTADO_FINAL:
+            solution = []
+            while v:
+                solution.append(v.acao)
+                v = v.pai
+            return len(x), solution[-2::-1]
+        
+        if v.estado not in x:
+            x.add(v.estado)
+            f = func_insercao(f, expande(v))
