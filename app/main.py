@@ -1,0 +1,45 @@
+import os
+from time import sleep, perf_counter
+import pandas as pd
+
+from buscadores import BUSCADORES_DISPONIVEIS
+
+
+def set_estado_inicial():
+    while True:
+        estado_inicial = input("Digite o estado inicial (algo da forma '_12345678', onde '_' indica a posição do tabuleiro não ocupada por uma peça): ")
+        os.system("cls")
+        if len(set(estado_inicial)) != 9:
+            print("Estado inicial inválido")
+        else:
+            break
+    return estado_inicial
+
+
+def _print_tabuleiro(estado):
+    estado = list(estado)
+    print(
+        f"| {estado[0]} | {estado[1]} | {estado[2]} |\n"
+        f"{'-'*13}\n"
+        f"| {estado[3]} | {estado[4]} | {estado[5]} |\n"
+        f"{'-'*13}\n"
+        f"| {estado[6]} | {estado[7]} | {estado[8]} |"
+    )
+
+
+if __name__ == "__main__":
+    resultados = pd.DataFrame(columns=["caminho_encontrado", "numero_de_acoes", "tempo_decorrido"])
+
+    estado_inicial = set_estado_inicial()
+    for nome_buscador, busca in BUSCADORES_DISPONIVEIS.items():
+        inicio = perf_counter()
+        caminho_encontrado = busca(estado_inicial)
+        tempo_decorrido = perf_counter() - inicio
+
+        resultados.loc[nome_buscador] = {
+            "caminho_encontrado": caminho_encontrado,
+            "numero_de_acoes": len(caminho_encontrado),
+            "tempo_decorrido": tempo_decorrido,
+        }
+
+    print(resultados)
