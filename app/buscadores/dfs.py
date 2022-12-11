@@ -22,10 +22,10 @@ def dfs(estado_inicial):
             while v:
                 solution.append(v.acao)
                 v = v.pai
-            return solution[-2::-1]
+            return len(x), solution[-2::-1]
         
         if v.estado not in x:
             x.add(v.estado)
             f.extend(expande(v))
 
-    raise ValueError("TILT")
+    return len(x), None

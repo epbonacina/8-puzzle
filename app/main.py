@@ -17,17 +17,25 @@ def set_estado_inicial():
 
 
 if __name__ == "__main__":
-    resultados = pd.DataFrame(columns=["caminho_encontrado", "numero_de_acoes", "tempo_decorrido"])
+    resultados = pd.DataFrame(
+        columns=[
+            "caminho_encontrado", 
+            "nodos_explorados",
+            "custo",
+            "tempo_decorrido",
+        ]
+    )
 
     estado_inicial = set_estado_inicial()
     for nome_buscador, busca in BUSCADORES_DISPONIVEIS.items():
         inicio = perf_counter()
-        caminho_encontrado = busca(estado_inicial)
+        nodos_explorados, caminho_encontrado = busca(estado_inicial)
         tempo_decorrido = perf_counter() - inicio
 
         resultados.loc[nome_buscador] = {
             "caminho_encontrado": caminho_encontrado,
-            "numero_de_acoes": len(caminho_encontrado),
+            "nodos_explorados": nodos_explorados,
+            "custo": len(caminho_encontrado) if caminho_encontrado else None,
             "tempo_decorrido": tempo_decorrido,
         }
 

@@ -2,8 +2,8 @@ from queue import PriorityQueue
 
 from buscadores.utils import expande, Node
 
-
 ESTADO_FINAL = "12345678_"
+
 
 def a_estrela_hamming(estado_inicial):
 
@@ -21,7 +21,7 @@ def a_estrela_hamming(estado_inicial):
         )
     )
 
-    while fronteira:
+    while not fronteira.empty():
         v = fronteira.get()[1]
 
         if v.estado == ESTADO_FINAL:
@@ -29,18 +29,18 @@ def a_estrela_hamming(estado_inicial):
             while v:
                 solution.append(v.acao)
                 v = v.pai
-            return solution[-2::-1]
+            return len(x), solution[-2::-1]
         
         if v.estado not in x:
             x.add(v.estado)
             for filho in expande(v):
                 fronteira.put((filho.custo + distancia_hamming(filho.estado), filho))
 
-    raise ValueError("TILT")
+    return len(x), None
 
 
 def distancia_hamming(estado):
     distancia = sum([1 for valor in estado if estado.index(valor) != ESTADO_FINAL.index(valor)])
-    
+
     return distancia
     

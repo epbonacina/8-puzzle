@@ -8,19 +8,17 @@ def a_estrela_manhattan(estado_inicial):
 
     x = set()
     fronteira = PriorityQueue()
-    fronteira.put(
-        (
-            distancia_manhattan(estado_inicial),
-            Node(
-                estado = estado_inicial, 
-                pai = None, 
-                acao = "null", 
-                custo = 0
-            )
+    fronteira.put((
+        distancia_manhattan(estado_inicial),
+        Node(
+            estado = estado_inicial, 
+            pai = None, 
+            acao = None, 
+            custo = 0
         )
-    )
+    ))
 
-    while fronteira:
+    while not fronteira.empty():
         v = fronteira.get()[1]
 
         if v.estado == ESTADO_FINAL:
@@ -28,14 +26,14 @@ def a_estrela_manhattan(estado_inicial):
             while v:
                 solution.append(v.acao)
                 v = v.pai
-            return solution[-2::-1]
+            return len(x), solution[-2::-1]
         
         if v.estado not in x:
             x.add(v.estado)
             for filho in expande(v):
                 fronteira.put((filho.custo + distancia_manhattan(filho.estado), filho))
 
-    raise ValueError("TILT")
+    return len(x), None
 
 
 def distancia_manhattan(estado):
@@ -43,6 +41,6 @@ def distancia_manhattan(estado):
     
     distancia = sum(abs((valor-1)%3 - i%3) + abs((valor-1)//3 - i//3)
         for i, valor in enumerate(tabuleiro) if valor)
-    
+
     return distancia
     
