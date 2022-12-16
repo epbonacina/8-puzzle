@@ -28,15 +28,15 @@ class Node:
             n_state = swap(self.estado, iblank, idown)
             succ.append((Acao.abaixo, n_state))
 
-        if iblank % 3 != 0:
-            ileft = iblank - 1
-            n_state = swap(self.estado, iblank, ileft)
-            succ.append((Acao.esquerda, n_state))
-
         if iblank % 3 != 2:
             iright = iblank + 1
             n_state = swap(self.estado, iblank, iright)
             succ.append((Acao.direita, n_state))
+
+        if iblank % 3 != 0:
+            ileft = iblank - 1
+            n_state = swap(self.estado, iblank, ileft)
+            succ.append((Acao.esquerda, n_state))
 
         return succ
 
