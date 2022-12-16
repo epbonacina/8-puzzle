@@ -1,8 +1,19 @@
 import os
-from time import sleep, perf_counter
+from time import perf_counter
 import pandas as pd
+from acao import Acao
+from buscadores.bfs import bfs
+from buscadores.dfs import dfs
+from buscadores.hamming import hamming
+from buscadores.manhattan import manhattan
+from node import Node
 
-from buscadores import BUSCADORES_DISPONIVEIS
+BUSCADORES_DISPONIVEIS = {
+    "bfs": bfs,
+    "dfs": dfs,
+    "hamming": hamming,
+    "manhattan": manhattan
+}
 
 
 def set_estado_inicial():
@@ -19,14 +30,14 @@ def set_estado_inicial():
 if __name__ == "__main__":
     resultados = pd.DataFrame(
         columns=[
-            "caminho_encontrado", 
+            "caminho_encontrado",
             "nodos_explorados",
             "custo",
             "tempo_decorrido",
         ]
     )
 
-    estado_inicial = set_estado_inicial()
+    estado_inicial = Node(set_estado_inicial(), 0, Acao.inicio)
     for nome_buscador, busca in BUSCADORES_DISPONIVEIS.items():
         inicio = perf_counter()
         nodos_explorados, caminho_encontrado = busca(estado_inicial)
