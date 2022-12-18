@@ -74,17 +74,19 @@ class AStar:
         return item[1]
 
 
-def busca_grafo(start_node, F):
-    objective = "12345678_"
-    X = set()
-    F.insert(start_node)
-    while True:
-        if F.empty():
-            return len(X), None
-        v = F.pop()
-        if v.estado == objective:
-            return len(X), v.trace_history()
-        if v.estado not in X:
-            X.add(v.estado)
-            for node in v.expand():
-                F.insert(node)
+def make_manhattan_dict():
+    manhattan = dict()
+    for cell in range(9):
+        manhattan[str(cell)] = dict()
+        for number in range(1, 10):
+            y1 = (cell)//3
+            y2 = (number-1)//3
+            x1 = (cell) % 3
+            x2 = (number-1) % 3
+            if number == 9:
+                number = '_'
+            manhattan[str(cell)][str(number)] = abs(x2-x1) + abs(y2-y1)
+    return manhattan
+
+
+MANHATTAN_DICT = make_manhattan_dict()
