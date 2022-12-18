@@ -1,8 +1,8 @@
 A simple Python program that can solve the 8-puzzle game using 3 different algorithms.
 
-## Requirements
+## Required external packages
 
-pandas
+pandas, which could be installed via `pip install pandas`.
 
 
 ## How to use
