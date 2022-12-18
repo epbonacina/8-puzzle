@@ -89,4 +89,28 @@ def make_manhattan_dict():
     return manhattan
 
 
+def hamming_heuristic(item):
+    goal = "12345678_"
+    state = item.estado
+    sum = 0
+    for i, v in enumerate(goal):
+        if v != state[i]:
+            sum += 1
+    return sum
+
+
+def manhattan_heuristic(item):
+    state = item.estado
+    total = 0
+    for i, v in enumerate(state):
+        total += MANHATTAN_DICT[str(i)][v]
+    return total
+
+
+def swap(string, i, j):
+    ls = list(string)
+    ls[i], ls[j] = ls[j], ls[i]
+    return ''.join(ls)
+
+
 MANHATTAN_DICT = make_manhattan_dict()

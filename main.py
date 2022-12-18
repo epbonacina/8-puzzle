@@ -36,9 +36,6 @@ if __name__ == "__main__":
     for nome_buscador, busca in BUSCADORES_DISPONIVEIS.items():
         inicio = perf_counter()
         caminho_encontrado = busca(estado_inicial)
-
-
-
         tempo_decorrido = perf_counter() - inicio
 
         resultados.loc[nome_buscador] = {

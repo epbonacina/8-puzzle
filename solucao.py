@@ -1,10 +1,12 @@
-from utils import Queue, Stack, AStar, MANHATTAN_DICT
-
-
-def swap(string, i, j):
-    ls = list(string)
-    ls[i], ls[j] = ls[j], ls[i]
-    return ''.join(ls)
+from utils import (
+    Queue, 
+    Stack, 
+    AStar,
+    MANHATTAN_DICT,
+    manhattan_heuristic,
+    hamming_heuristic, 
+    swap,
+)
 
 
 class Nodo:
@@ -84,26 +86,8 @@ def dfs(estado_inicial):
     return busca_grafo(estado_inicial, Stack())
 
 
-def hamming_heuristic(item):
-    goal = "12345678_"
-    state = item.estado
-    sum = 0
-    for i, v in enumerate(goal):
-        if v != state[i]:
-            sum += 1
-    return sum
-
-
 def astar_hamming(estado_inicial):
     return busca_grafo(estado_inicial, AStar(hamming_heuristic))
-
-
-def manhattan_heuristic(item):
-    state = item.estado
-    total = 0
-    for i, v in enumerate(state):
-        total += MANHATTAN_DICT[str(i)][v]
-    return total
 
 
 def astar_manhattan(estado_inicial):
