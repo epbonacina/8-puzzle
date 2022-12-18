@@ -2,7 +2,7 @@ A simple Python program that can solve the 8-puzzle game using 3 different algor
 
 ## Requirements
 
-No aditional Python package is required to run the program.
+pandas
 
 
 ## How to use
